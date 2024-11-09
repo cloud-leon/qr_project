@@ -19,3 +19,4 @@ class QRCodeTests(TestCase):
         self.assertEqual(response.status_code, 200)
         qr_code.refresh_from_db()
         self.assertEqual(qr_code.status, 'verified')
+

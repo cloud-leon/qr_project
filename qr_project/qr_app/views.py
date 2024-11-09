@@ -1,6 +1,8 @@
 from django.shortcuts import render
 import qrcode
 import jwt
+import base64
+from io import BytesIO
 from datetime import datetime
 from django.conf import settings
 from django.shortcuts import get_object_or_404
@@ -24,8 +26,15 @@ def generate_qr(request):
 
     # Generate QR code image (optional)
     img = qrcode.make(qr_data)
-    img.save(f"qr_images/{qr_id}.png")
 
+    buffered = BytesIO()
+    img.save(f"qr_images/{qr_id}.png")
+    img.save(buffered, format="PNG")
+
+    img_str = base64.b64encode(buffered.getvalue).decode()
+    
+
+    
     # Save QR code data in the database
     qr_code = QRCode.objects.create(
         qr_id=qr_id,
@@ -36,7 +45,11 @@ def generate_qr(request):
     return JsonResponse({
         'qr_id': qr_code.qr_id,
         'qr_data': qr_code.qr_data,
-    })
+        'qr_image_base64': img_str,
+    })  
+
+
+@api_view([''])
 
 # Verify QR Code
 @api_view(['POST'])

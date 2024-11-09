@@ -1,0 +1,24 @@
+<!-- templates/registr ---->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code</title>
+</head>
+<body>
+    <h1>Your QR Code</h1>
+    <img id="qrImage" src="" alt="QR Code" />
+    <script>
+        // Example response data from the Django API
+        const responseData = {
+            qr_id: "your_qr_id",
+            qr_data: "your_qr_data",
+            qr_image_base64: "base64_encoded_string"
+        };
+
+        // Set the src attribute for the img tag
+        document.getElementById("qrImage").src = `data:image/png;base64,${responseData.qr_image_base64}`;
+    </script>
+</body>
+</html>

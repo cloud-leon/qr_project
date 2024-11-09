@@ -134,6 +134,6 @@ REST_FRAMEWORK = {
     ],
 }
 
-LOGIN_REDIRECT_URL = "/api/generate-qr/"
+LOGIN_REDIRECT_URL = "/api/verify/"
 LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = "accounts/login/"
